@@ -1,14 +1,9 @@
 services:
   - type: web
     name: qr-menu-app
-runtime: php
-plan: free
-    buildCommand: |
-      composer install --no-dev && \
-      php artisan key:generate --force && \
-      php artisan migrate --force && \
-      php artisan cache:clear && \
-      php artisan config:cache
+    runtime: php
+    plan: free
+    buildCommand: composer install --no-dev && php artisan key:generate --force && php artisan migrate --force && php artisan cache:clear && php artisan config:cache
     startCommand: php -S 0.0.0.0:$PORT -t public
     envVars:
       - key: APP_NAME
