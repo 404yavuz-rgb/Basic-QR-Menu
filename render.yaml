@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: qr-menu-app
+    env: php
+    plan: free
+    buildCommand: |
+      composer install --no-dev && \
+      php artisan key:generate --force && \
+      php artisan migrate --force && \
+      php artisan cache:clear && \
+      php artisan config:cache
+    startCommand: php -S 0.0.0.0:$PORT -t public
+    envVars:
+      - key: APP_NAME
+        value: "QR Menü Sistemi"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        value: base64:uXJPdBbzWHNwvPrXN5HpnJ8K2M9L4X6Y/Z+A1B2C3D=
+      - key: APP_URL
+        value: https://qr-menu-app.onrender.com
+      - key: LOG_CHANNEL
+        value: single
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /var/data/database.sqlite
+      - key: DB_FOREIGN_KEYS
+        value: "true"
+      - key: BROADCAST_DRIVER
+        value: log
+      - key: CACHE_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: SESSION_DRIVER
+        value: cookie
