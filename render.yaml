@@ -1,8 +1,8 @@
 services:
   - type: web
     name: qr-menu-app
-    env: php
-    plan: free
+runtime: php
+plan: free
     buildCommand: |
       composer install --no-dev && \
       php artisan key:generate --force && \
